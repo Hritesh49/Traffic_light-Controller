@@ -1,4 +1,4 @@
-Traffic Light Controller in Verilog
+#Traffic Light Controller in Verilog
 This repository contains the Verilog code for a simple traffic light controller for an intersection between a highway and a farm road.
 
 Project Overview
