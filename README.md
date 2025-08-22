@@ -1,44 +1,72 @@
-Traffic Light Controller in Verilog
-This repository contains the Verilog code for a simple traffic light controller for an intersection between a highway and a farm road.
+# 🚦 Traffic Light Controller in Verilog
 
-Project Overview
-The project models a traffic light system where the highway traffic has priority. The traffic light on the highway remains green by default, while the farm road light stays red. The system only changes state when a car is detected on the farm road. The controller is designed as a finite state machine (FSM).
+This repository contains the Verilog code for a simple **Traffic Light Controller** for an intersection between a **Highway** and a **Farm Road**.
 
-Features
-Default State: Highway light is Green, Farm road light is Red.
+---
 
-Sensor-based Trigger: The light cycle is initiated when the input sensor C detects a car on the farm road (C=1).
+## 📌 Project Overview
+The project models a traffic light system where the **highway traffic has priority**.  
+- By default, the **Highway light stays Green** while the **Farm road light stays Red**.  
+- The system only changes state when a **car is detected** on the farm road via sensor **C**.  
+- The controller is implemented as a **Finite State Machine (FSM)**.
 
-State Sequence:
+---
 
-Highway Green / Farm Red: The initial and default state.
+## ✨ Features
+- **Default State:** Highway = Green, Farm = Red.  
+- **Sensor-based Trigger:** Light cycle starts when sensor `C = 1` (car detected).  
+- **State Sequence:**
+  1. **Highway Green / Farm Red** → Initial & default state.  
+  2. **Highway Yellow / Farm Red** → Highway turns yellow for **3 seconds**.  
+  3. **Highway Red / Farm Green** → Farm road turns green for **10 seconds**.  
+  4. **Highway Red / Farm Yellow** → Farm road turns yellow for **3 seconds**.  
+  5. Returns to **Highway Green / Farm Red**.  
+- **Active-low Reset:** System can be reset to the initial state.
 
-Highway Yellow / Farm Red: When a car is detected on the farm road, the highway light turns yellow for a short duration (3 seconds in simulation time).
+---
 
-Highway Red / Farm Green: After the yellow light phase, the highway light turns red, and the farm road light turns green for a fixed duration (10 seconds in simulation time).
+## 📂 File Descriptions
+- `traffic_light.v` → Main Verilog module for the **Traffic Light Controller FSM**.  
+- `tb_traffic.v` → Testbench file to **simulate and verify** functionality.  
 
-Highway Red / Farm Yellow: The farm road light turns yellow for a short duration (3 seconds in simulation time).
+---
 
-The system then returns to the default state (Highway Green / Farm Red).
+## ▶️ How to Use
+1. Install a Verilog simulator (e.g., **ModelSim**, **Vivado**, or **Icarus Verilog**).  
+2. Compile both files:  
+   ```bash
+   iverilog -o traffic_sim traffic_light.v tb_traffic.v
+   vvp traffic_sim
+3. Run the simulation with tb_traffic as the top module.
 
-Active-low Reset: The system can be reset to its initial state.
+4. Open the generated waveform (.vcd file) in GTKWave (or a supported viewer) to observe behavior.
 
-File Descriptions
-traffic_light.v: This file contains the main Verilog module for the traffic light controller FSM.
+## 📊 Simulation Waveform
 
-tb_traffic.v: This is the testbench file used to simulate and verify the functionality of the traffic_light module.
+The waveform demonstrates the state transitions when the farm road sensor C is triggered.
 
-How to Use
-To run this project, you will need a Verilog simulator (e.g., ModelSim, Vivado, Icarus Verilog).
+- Default (Highway Green / Farm Red)
 
-Compile both traffic_light.v and tb_traffic.v files.
+- Highway Yellow → Farm Green → Farm Yellow
 
-Run the simulation with tb_traffic as the top module.
+- Back to Default
 
-Observe the waveform and the console output to verify the behavior. The testbench is set up to trigger the sensor and test the state transitions.
+## 🖥️ Simulation Objects
 
-Simulation Waveform
-The following waveform shows the behavior of the signals during simulation when the sensor C is triggered.
+Key signals and registers observed in simulation:
 
-Simulation Objects
-This screenshot shows the state of various signals and registers at a specific point during the simulation.
+- FSM State
+
+- Highway Lights (Green/Yellow/Red)
+
+- Farm Road Lights (Green/Yellow/Red)
+
+- Sensor Input (C)
+
+- Reset Signal
+
+## ⚡ Tech Stack
+
+- **Language**: Verilog HDL
+
+- **Concepts**: FSM, Sequential Logic, Testbench Simulation
